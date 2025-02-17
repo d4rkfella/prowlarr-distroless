@@ -13,6 +13,17 @@
   ],
   "dependencyDashboardTitle": "Renovate Dashboard 🤖",
   "suppressNotifications": ["prEditedNotification", "prIgnoreNotification"],
+  "customManagers": [
+    {
+      "customType": "regex",
+      "description": ["Process Dockerfile custom dependencies"],
+      "fileMatch": ["(^|/)Dockerfile$"],
+      "matchStrings": [
+        "datasource=(?<datasource>\\S+) depName=(?<depName>\\S+)\\s*\\nARG (?<argName>\\S+)=v(?<currentValue>\\S+)"
+      ],
+      "datasourceTemplate": "{{#if datasource}}{{{datasource}}}{{else}}github-releases{{/if}}"
+    }
+  ],
   "packageRules": [
     {
       "matchDatasources": ["github-releases"],
