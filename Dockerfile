@@ -1,6 +1,6 @@
 FROM mcr.microsoft.com/dotnet/runtime-deps:9.0.2-alpine3.21-extra AS build
 
-# renovate: depName=Prowlarr/Prowlarr
+# renovate: datasource=github-releases depName=Prowlarr/Prowlarr
 ARG VERSION=v1.30.2.4939
 
 WORKDIR /workdir
