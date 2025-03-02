@@ -25,7 +25,7 @@ RUN apk add --no-cache \
     echo "prowlarr:x:65532:65532::/nonexistent:/sbin/nologin" > etc/passwd && \
     echo "prowlarr:x:65532:" > etc/group
 
-FROM ghcr.io/d4rkfella/wolfi-dotnet-runtime-deps:1.0.0@sha256:0318fe4613d9293bf2ad655debc4f87a10223eb66a5f8317bc5cdc1d886099d3
+FROM ghcr.io/d4rkfella/wolfi-dotnet-runtime-deps:1.0.0@sha256:f2b25f65ef553002faf80082d284ca87f9fea82a435f3d75271ec6bb048cf372
 
 COPY --from=build /rootfs /
 
