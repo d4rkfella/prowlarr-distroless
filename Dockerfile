@@ -1,4 +1,4 @@
-FROM cgr.dev/chainguard/wolfi-base:latest@sha256:aea7d57b66f1be92f84234aa4fceca3fa0a42ab2e48ac3a82dab08fb1fb49aa9 AS build
+FROM cgr.dev/chainguard/wolfi-base:latest@sha256:2d4f19f0745468006c13a79325ff4b0d61a2dede3473c7be4ce015ae4982d69a AS build
 
 # renovate: datasource=github-releases depName=Prowlarr/Prowlarr
 ARG PROWLARR_VERSION=v1.31.2.4975
@@ -15,7 +15,7 @@ RUN apk add --no-cache \
     echo "prowlarr:x:65532:65532::/nonexistent:/sbin/nologin" > etc/passwd && \
     echo "prowlarr:x:65532:" > etc/group
 
-FROM ghcr.io/d4rkfella/wolfi-dotnet-runtime-deps:latest@sha256:b13333acf00aa862e9c25b95edf36be71484d6d7bad68e899c3a0f6928202cb1
+FROM ghcr.io/d4rkfella/wolfi-dotnet-runtime-deps:latest@sha256:b8b557a9486edb9207668f2f4b418ffdd3003095d7b929022898df42a86b8af8
 
 COPY --from=build /rootfs /
 
