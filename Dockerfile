@@ -1,30 +1,21 @@
 FROM cgr.dev/chainguard/wolfi-base:latest@sha256:91ed94ec4e72368a9b5113f2ffb1d8e783a91db489011a89d9fad3e3816a75ba AS build
 
 # renovate: datasource=github-releases depName=Prowlarr/Prowlarr
-ARG PROWLARR_VERSION=v1.31.2.4975
+ARG VERSION=v1.31.2.4975
 
 WORKDIR /rootfs
 
 RUN apk add --no-cache \
         curl && \
-    mkdir -p app/bin etc && \
-    curl -fsSL "https://github.com/Prowlarr/Prowlarr/releases/download/${PROWLARR_VERSION}/Prowlarr.master.${PROWLARR_VERSION#v}.linux-core-x64.tar.gz" | \
+    mkdir -p app/bin && \
+    curl -fsSL "https://github.com/Prowlarr/Prowlarr/releases/download/${VERSION}/Prowlarr.master.${VERSION#v}.linux-core-x64.tar.gz" | \
     tar xvz --strip-components=1 --directory=app/bin && \
-    printf "UpdateMethod=docker\nBranch=%s\nPackageVersion=%s\nPackageAuthor=[d4rkfella](https://github.com/d4rkfella)\n" "master" "${PROWLARR_VERSION}" > app/package_info && \
-    rm -rf app/bin/Prowlarr.Update && \
-    echo "prowlarr:x:65532:65532::/nonexistent:/sbin/nologin" > etc/passwd && \
-    echo "prowlarr:x:65532:" > etc/group
+    printf "UpdateMethod=docker\nBranch=%s\nPackageVersion=%s\nPackageAuthor=[d4rkfella](https://github.com/d4rkfella)\n" "master" "${VERSION}" > app/package_info && \
+    rm -rf app/bin/Prowlarr.Update
 
-FROM ghcr.io/d4rkfella/wolfi-dotnet-runtime-deps:latest@sha256:60e5c5085bb9d2dce93e56c9a95e64806c91394bd401b7f8427e48b2db936cc8
+FROM ghcr.io/d4rkfella/wolfi-dotnet-runtime-deps:latest@sha256:b4e7bd3c8df21b51129a703ed55e18f736d21136af1230d8420c77f99e6c8c29
 
 COPY --from=build /rootfs /
-
-USER prowlarr:prowlarr
-
-WORKDIR /app
-
-VOLUME ["/config"]
-EXPOSE 9696
 
 ENV XDG_CONFIG_HOME=/config \
     DOTNET_RUNNING_IN_CONTAINER=true \
@@ -32,7 +23,6 @@ ENV XDG_CONFIG_HOME=/config \
     TZ="Etc/UTC" \
     UMASK="0002" 
 
-ENTRYPOINT [ "catatonit", "--", "/app/bin/Prowlarr" ]
-CMD [ "-nobrowser" ]
+CMD [ "/app/bin/Prowlarr", "-nobrowser" ]
 
 LABEL org.opencontainers.image.source="https://github.com/Prowlarr/Prowlarr"
