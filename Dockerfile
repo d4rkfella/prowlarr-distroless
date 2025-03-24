@@ -1,7 +1,7 @@
 FROM cgr.dev/chainguard/wolfi-base:latest@sha256:91ed94ec4e72368a9b5113f2ffb1d8e783a91db489011a89d9fad3e3816a75ba AS build
 
 # renovate: datasource=github-releases depName=Prowlarr/Prowlarr
-ARG VERSION=v1.31.2.4975
+ARG VERSION=v1.32.2.4987
 
 WORKDIR /rootfs
 
