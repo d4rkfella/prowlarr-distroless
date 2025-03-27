@@ -4,8 +4,10 @@ contents:
   repositories:
     - https://packages.wolfi.dev/os
   packages:
+    - wolfi-baselayout
     - prowlarr
     - catatonit
+    - tzdata
 volumes: [ "/config" ]
 accounts:
   groups:
