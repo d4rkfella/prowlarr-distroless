@@ -8,7 +8,7 @@ contents:
     - prowlarr
     - catatonit
     - tzdata
-work-dir: /usr/lib/Prowlarr/bin
+work-dir: /config
 volumes: [ "/config" ]
 accounts:
   groups:
@@ -22,7 +22,7 @@ accounts:
       shell: ""
   run-as: nonroot:nonroot
 environment:
-  PATH: /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+  PATH: /usr/lib/Prowlarr/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
   SSL_CERT_FILE: /etc/ssl/certs/ca-certificates.crt
   XDG_CONFIG_HOME: /config
   DOTNET_RUNNING_IN_CONTAINER: true
