@@ -8,6 +8,7 @@ contents:
     - prowlarr
     - catatonit
     - tzdata
+work-dir: /usr/lib/Prowlarr/bin
 volumes: [ "/config" ]
 accounts:
   groups:
@@ -30,5 +31,5 @@ environment:
   UMASK: "0002"
 entrypoint: 
   command:
-    /usr/bin/catatonit -- /usr/lib/Prowlarr/bin/Prowlarr
+    catatonit -- Prowlarr
 cmd: --nobrowser
